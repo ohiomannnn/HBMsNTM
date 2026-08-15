@@ -12,10 +12,13 @@ import javax.annotation.Nullable;
 
 public abstract class ParticleProviderBase<T extends ParticleOptions> implements ParticleProvider<T> {
 
+    // for some fucking unknown reason minecraft crashes because "u cant use random from multiple threads" like what??? arent minecraft single thread game???
+    protected static final RandomSource RANDOM = RandomSource.createThreadSafe();
+
     @Override
     public @Nullable Particle createParticle(T options, ClientLevel level, double x, double y, double z, double xd, double yd, double zd) {
         Minecraft mc = Minecraft.getInstance();
-        this.createParticle(options, x, y, z, xd, yd, zd, level, level.random, mc.options.particles().get());
+        this.createParticle(options, x, y, z, xd, yd, zd, level, RANDOM, mc.options.particles().get());
         return null;
     }
 

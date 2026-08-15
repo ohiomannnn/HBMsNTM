@@ -40,6 +40,9 @@ public class ResourceManager {
     public static final ResourceLocation TANK_TEX = NuclearTechMod.withDefaultNamespace("textures/models/machines/tank.png");
     public static final ResourceLocation TANK_INNER_TEX = NuclearTechMod.withDefaultNamespace("textures/models/machines/tank_inner.png");
 
+    //Large Turbine
+    public static final ResourceLocation CHUNGUS_TEX = NuclearTechMod.withDefaultNamespace("textures/models/machines/chungus.png");
+
     public static final ResourceLocation BATTERY_SOCKET_TEX = NuclearTechMod.withDefaultNamespace("textures/models/machines/battery_socket.png");
     public static final ResourceLocation SOLDERING_STATION_TEX = NuclearTechMod.withDefaultNamespace("textures/models/machines/soldering_station.png");
     public static final ResourceLocation ARC_WELDER_TEX = NuclearTechMod.withDefaultNamespace("textures/models/machines/arc_welder.png");
@@ -207,6 +210,8 @@ public class ResourceManager {
     public static final ResourceLocation FATMAN_TEX = NuclearTechMod.withDefaultNamespace("textures/models/weapon/fatman.png");
     public static final ResourceLocation FATMAN_MININUKE_TEX = NuclearTechMod.withDefaultNamespace("textures/models/weapon/fatman_mininuke.png");
     public static final ResourceLocation FATMAN_BALEFIRE_TEX = NuclearTechMod.withDefaultNamespace("textures/models/weapon/fatman_balefire.png");
+    public static final ResourceLocation CLUSTER_SUBMUNITION_TEX = NuclearTechMod.withDefaultNamespace("textures/models/weapon/fatman_submunition.png");
+    public static final ResourceLocation HANGMAN_TEX = NuclearTechMod.withDefaultNamespace("textures/models/weapon/hangman.png");
     public static final ResourceLocation DOUBLE_BARREL_SACRED_DRAGON_TEX = NuclearTechMod.withDefaultNamespace("textures/models/weapon/double_barrel_sacred_dragon.png");
     public static final ResourceLocation N_I_4_N_I_TEX = NuclearTechMod.withDefaultNamespace("textures/models/weapon/n_i_4_n_i.png");
     public static final ResourceLocation N_I_4_N_I_GREYSCALE_TEX = NuclearTechMod.withDefaultNamespace("textures/models/weapon/n_i_4_n_i_greyscale.png");
@@ -220,6 +225,10 @@ public class ResourceManager {
     public static final ResourceLocation NO9_TEX = NuclearTechMod.withDefaultNamespace("textures/armor/no9.png");
     public static final ResourceLocation NO9_INSIGNIA_TEX = NuclearTechMod.withDefaultNamespace("textures/armor/no9_insignia.png");
 
+    //ZIRNOX
+    public static final ResourceLocation ZIRNOX_TEX = NuclearTechMod.withDefaultNamespace("textures/models/zirnox.png");
+    public static final ResourceLocation ZIRNOX_DESTROYED_TEX = NuclearTechMod.withDefaultNamespace("textures/models/zirnox_destroyed.png");
+
     public static final ResourceLocation WHITE_TEX = NuclearTechMod.withDefaultNamespace("textures/models/white.png");
 
     // Landmines
@@ -231,6 +240,9 @@ public class ResourceManager {
     // Tank
     public static IModelCustom fluid_tank;
     public static IModelCustom fluid_tank_exploded;
+
+    // Large Turbine
+    public static IModelCustom chungus;
 
     // Press
     public static IObjRenderer press_body;
@@ -342,6 +354,7 @@ public class ResourceManager {
     public static IModelCustom lilmac;
     public static IModelCustom spas_12;
     public static IModelCustom fatman;
+    public static IModelCustom hangman;
     public static IModelCustom double_barrel;
     public static IModelCustom n_i_4_n_i;
 
@@ -354,6 +367,10 @@ public class ResourceManager {
     public static IObjRenderer sphere;
     public static IModelCustom sphere_new;
 
+    // ZIRNOX
+    public static IModelCustom zirnox;
+    public static IModelCustom zirnox_destroyed;
+
     public static void init() {
 
         mine_ap = new HFRWavefrontObject("models/obj/bomb/mine_ap.obj").asVBO();
@@ -363,6 +380,8 @@ public class ResourceManager {
 
         fluid_tank = new HFRWavefrontObject("models/obj/machines/fluid_tank.obj").asVBO();
         fluid_tank_exploded = new HFRWavefrontObject("models/obj/machines/fluid_tank_exploded.obj").asVBO();
+
+        chungus = new HFRWavefrontObject("models/obj/machines/chungus.obj").asVBO();
 
         press_body = new HFRWavefrontObject("models/obj/press_body.obj").getRenderer();
         press_head = new HFRWavefrontObject("models/obj/press_head.obj").getRenderer();
@@ -464,6 +483,7 @@ public class ResourceManager {
         lilmac = new HFRWavefrontObject("models/obj/weapons/lilmac.obj").asVBO();
         spas_12 = new HFRWavefrontObject("models/obj/weapons/spas-12.obj").asVBO();
         fatman = new HFRWavefrontObject("models/obj/weapons/fatman.obj").asVBO();
+        hangman = new HFRWavefrontObject("models/obj/weapons/hangman.obj").asVBO();
         double_barrel = new HFRWavefrontObject("models/obj/weapons/sacred_dragon.obj").asVBO();
         n_i_4_n_i = new HFRWavefrontObject("models/obj/weapons/n_i_4_n_i.obj").asVBO();
 
@@ -475,5 +495,8 @@ public class ResourceManager {
 
         sphere = new HFRWavefrontObject("models/obj/sphere.obj").getRenderer();
         sphere_new = new HFRWavefrontObject("models/obj/sphere_new.obj").asVBO();
+
+        zirnox = new HFRWavefrontObject("models/obj/zirnox.obj").asVBO();
+        zirnox_destroyed = new HFRWavefrontObject("models/obj/zirnox_destroyed.obj").asVBO();
     }
 }

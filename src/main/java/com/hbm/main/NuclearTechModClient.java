@@ -22,9 +22,7 @@ import com.hbm.items.*;
 import com.hbm.items.special.PolaroidItem;
 import com.hbm.items.tools.GeigerCounterItem;
 import com.hbm.items.weapon.sedna.GunBaseNTItem;
-import com.hbm.items.weapon.sedna.factory.GunFactory;
-import com.hbm.items.weapon.sedna.factory.LegoClient;
-import com.hbm.items.weapon.sedna.factory.XFactory12ga;
+import com.hbm.items.weapon.sedna.factory.GunFactoryClient;
 import com.hbm.network.toserver.Ducc;
 import com.hbm.particle.*;
 import com.hbm.particle.ContrailParticle.ABMContrailProvider;
@@ -95,7 +93,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -144,14 +141,9 @@ public class NuclearTechModClient {
             // CIRCLES IN MINECRAFT
             ResourceManager.init();
 
-            //PROJECTILES
-            GunFactory.ammo_debug.setRenderer(LegoClient.RENDER_STANDARD_BULLET);
-            GunFactory.ammo_debug_shot.setRenderer(LegoClient.RENDER_STANDARD_BULLET);
-
-            XFactory12ga.g12.setRenderer(LegoClient.RENDER_STANDARD_BULLET);
-
             NuclearTechMod.proxy.registerBlockEntityRenderers();
             NuclearTechMod.proxy.registerClientExtensions(RegisterClientExtensionsEventInvoker.create());
+            GunFactoryClient.init(RegisterClientExtensionsEventInvoker.create());
             NuclearTechMod.proxy.registerEntityRenderers();
 
             // todo find better place for this
@@ -266,14 +258,12 @@ public class NuclearTechModClient {
     public static final int shakeDuration = 1_500;
     public static long shakeTimestamp;
 
-    @SubscribeEvent(receiveCanceled = true)
+    @SubscribeEvent
     public static void onRenderGuiPre(RenderGuiLayerEvent.Pre event) {
-        Player player = NuclearTechMod.proxy.me();
-        if(player == null) return;
 
-        for(ItemStack stack : InventoryUtil.getItemsFromBothHands(player)) {
-            if(stack.getItem() instanceof IHUDItem hudItem) hudItem.renderHUD(event, player, stack);
-        }
+        Player player = NuclearTechMod.proxy.me();
+        ItemStack stack = player.getMainHandItem();
+        if(stack.getItem() instanceof IHUDItem hudItem) hudItem.renderHUD(event, player, stack);
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -751,6 +741,7 @@ public class NuclearTechModClient {
         event.registerSpecial(NtmParticleTypes.VOMIT_BLOOD.get(), new VomitBloodProvider());
         event.registerSpecial(NtmParticleTypes.VOMIT_SMOKE.get(), new VomitSmokeProvider());
         event.registerSpecial(NtmParticleTypes.AMAT.get(), new AmatFlashParticle.Provider());
+        event.registerSpecial(NtmParticleTypes.RBMK_FLAME.get(), new RBMKFlameParticle.Provider());
         event.registerSpecial(NtmParticleTypes.COOLING_TOWER.get(), new CoolingTowerProvider());
         event.registerSpriteSet(NtmParticleTypes.GAS_FLAME.get(), ParticleGasFlame.Provider::new);
         event.registerSpecial(NtmParticleTypes.TOM_BLAST.get(), new CloudTomParticle.Provider());

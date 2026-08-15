@@ -5,6 +5,7 @@ import com.hbm.items.weapon.sedna.GunBaseNTItem.SmokeNode;
 import com.hbm.main.NuclearTechMod;
 import com.hbm.render.NtmRenderTypes;
 import com.hbm.render.util.RenderContext;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -19,6 +20,7 @@ import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -72,7 +74,6 @@ public abstract class ItemRenderWeaponBase extends BlockEntityWithoutLevelRender
 
     @Override
     public void renderByItem(ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
-        if(displayContext == ItemDisplayContext.FIRST_PERSON_LEFT_HAND || displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND) return;
 
         RenderContext.setup(poseStack, packedLight, packedOverlay);
 
@@ -80,13 +81,30 @@ public abstract class ItemRenderWeaponBase extends BlockEntityWithoutLevelRender
         RenderContext.mulPose(Axis.YP.rotationDegrees(180F));
         switch(displayContext) {
             case FIRST_PERSON_RIGHT_HAND -> {
-                RenderContext.translate(-0.9959F, 0.51F, -1F);
+                RenderContext.translate(-1F, 0.51F, -1F);
+                if(!isRightHandMain()) RenderContext.mulPose(Axis.XP.rotationDegrees(15F));
                 this.setupFirstPerson(stack);
                 this.renderFirstPerson(stack, buffer);
+            }
+            case FIRST_PERSON_LEFT_HAND -> {
+                RenderSystem.disableCull();
+                RenderContext.translate(-1F, 0.51F, -1F);
+                RenderContext.scale(-1F, 1F, 1F);
+                if(isRightHandMain()) RenderContext.mulPose(Axis.XP.rotationDegrees(15F));
+                this.setupFirstPerson(stack);
+                this.renderFirstPerson(stack, buffer);
+                RenderSystem.enableCull();
             }
             case THIRD_PERSON_RIGHT_HAND -> {
                 this.setupThirdPerson(stack);
                 this.renderStatic(stack, buffer, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND);
+            }
+            case THIRD_PERSON_LEFT_HAND -> {
+                RenderSystem.disableCull();
+                RenderContext.scale(-1F, 1F, 1F);
+                this.setupThirdPerson(stack);
+                this.renderStatic(stack, buffer, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND);
+                RenderSystem.enableCull();
             }
             case GROUND -> {
                 this.setupEntity(stack);
@@ -168,6 +186,8 @@ public abstract class ItemRenderWeaponBase extends BlockEntityWithoutLevelRender
         float scale = 0.05F;
         RenderContext.scale(scale, scale, scale);
     }
+
+    public static boolean isRightHandMain() { return Minecraft.getInstance().options.mainHand().get() == HumanoidArm.RIGHT; }
 
     public static void standardAimingTransform(ItemStack stack, float sX, float sY, float sZ, float aX, float aY, float aZ) {
         float aimingProgress = Mth.lerp(partialTick, GunBaseNTItem.prevAimingProgress, GunBaseNTItem.aimingProgress);

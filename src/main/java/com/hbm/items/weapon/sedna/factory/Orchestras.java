@@ -9,11 +9,22 @@ import com.hbm.particle.SpentCasing;
 import com.hbm.particle.helper.CasingCreator;
 import com.hbm.registry.NtmSoundEvents;
 import com.hbm.render.anim.AnimationEnums.GunAnimation;
+import com.hbm.util.EntityDamageUtil;
 import com.hbm.util.SoundUtils;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.HitResult.Type;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.function.BiConsumer;
@@ -133,6 +144,67 @@ public class Orchestras {
             if(timer == 18) SoundUtils.playAtVec3(level, entity.position(), NtmSoundEvents.GUN_WHACK.get(), entity.getSoundSource());
             if(timer == 25) SoundUtils.playAtVec3(level, entity.position(), NtmSoundEvents.GUN_WHACK.get(), entity.getSoundSource());
             if(timer == 29) SoundUtils.playAtVec3(level, entity.position(), NtmSoundEvents.GUN_SHOTGUN_CLOSE.get(), entity.getSoundSource());
+        }
+    };
+
+    public static BiConsumer<ItemStack, LambdaContext> ORCHESTRA_HANGMAN = (stack, ctx) -> {
+        LivingEntity entity = ctx.entity;
+        Level level = entity.level;
+        if(!(level instanceof ServerLevel serverLevel)) return;
+        GunAnimation type = GunBaseNTItem.getLastAnim(stack, ctx.configIndex);
+        int timer = GunBaseNTItem.getAnimTimer(stack, ctx.configIndex);
+
+        if(type == GunAnimation.CYCLE) {
+            if(timer == 0) PacketDistributor.sendToPlayersNear(serverLevel, null, entity.getX(), entity.getY(), entity.getZ(), 100, new MuzzleFlashPacket(entity.getId()));
+        }
+        if(type == GunAnimation.CYCLE_DRY) {
+            if(timer == 0) SoundUtils.playAtVec3(level, entity.position(), NtmSoundEvents.GUN_DRY_FIRE.get(), entity.getSoundSource());
+        }
+
+        if(type == GunAnimation.RELOAD) {
+
+            //if(timer == 0) entity.worldObj.playSoundAtEntity(entity, NTMSounds.GUN_REVOLVER_COCK, 1F, 0.8F);
+            //if(timer == 5) entity.worldObj.playSoundAtEntity(entity, NTMSounds.GUN_MAG_SMALL_REMOVE, 1F, 0.8F);
+            //if(timer == 25) entity.worldObj.playSoundAtEntity(entity, NTMSounds.GUN_REVOLVER_CLOSE, 1F, 1F);
+            //if(timer == 35) entity.worldObj.playSoundAtEntity(entity, NTMSounds.GUN_REVOLVER_COCK, 1F, 0.75F);
+
+            if(timer == 10) {
+                Receiver rec = ctx.config.getReceivers(stack)[0];
+                IMagazine mag = rec.getMagazine(stack);
+                SpentCasing casing = mag.getCasing(stack, ctx.container);
+                if(casing != null) for(int i = 0; i < mag.getCapacity(stack); i++) CasingCreator.composeEffect(level, entity, 0.25, -0.25, -0.125, -0.05, 0, 0, 0.01, -6.5F + (float)entity.random.nextGaussian() * 3F, (float)entity.random.nextGaussian() * 5F, casing.getName());
+            }
+        }
+
+        if(type == GunAnimation.INSPECT) {
+            if(timer == 16 && ctx.getPlayer() != null) {
+                HitResult hr = EntityDamageUtil.getMouseOver(ctx.getPlayer(), 3.0D);
+                if(hr != null) {
+                    if(hr.getType() == Type.ENTITY) {
+                        EntityHitResult ehr = (EntityHitResult) hr;
+                        Entity hitEntity = ehr.getEntity();
+                        float damage = 10F;
+                        hitEntity.hurt(entity.level.damageSources().playerAttack(ctx.getPlayer()), damage);
+                        Vec3 motion = hitEntity.getDeltaMovement();
+                        hitEntity.setDeltaMovement(motion.x * 2, motion.y, motion.z * 2);
+                        //entity.worldObj.playSoundAtEntity(mop.entityHit, NTMSounds.GUN_SMACK, 1F, 0.9F + entity.getRNG().nextFloat() * 0.2F);
+                    }
+                    if(hr.getType() == Type.BLOCK) {
+                        BlockHitResult bhr = (BlockHitResult) hr;
+                        BlockPos pos = bhr.getBlockPos();
+                        BlockState state = level.getBlockState(bhr.getBlockPos());
+                        Block block = state.getBlock();
+                        SoundUtils.playAtBlockPos(level, pos, block.getSoundType(state, level, pos, ctx.getPlayer()).getStepSound(), entity.getSoundSource(), 2F, 0.9F + entity.random.nextFloat() * 0.2F);
+                    }
+                }
+            }
+        }
+
+        if(type == GunAnimation.JAMMED) {
+            //if(timer == 10) entity.worldObj.playSoundAtEntity(entity, NTMSounds.GUN_REVOLVER_COCK, 1F, 0.8F);
+            //if(timer == 15) entity.worldObj.playSoundAtEntity(entity, NTMSounds.GUN_MAG_SMALL_REMOVE, 1F, 0.8F);
+            //if(timer == 20) entity.worldObj.playSoundAtEntity(entity, NTMSounds.GUN_REVOLVER_CLOSE, 1F, 1F);
+            //if(timer == 25) entity.worldObj.playSoundAtEntity(entity, NTMSounds.GUN_REVOLVER_COCK, 1F, 0.75F);
         }
     };
 }

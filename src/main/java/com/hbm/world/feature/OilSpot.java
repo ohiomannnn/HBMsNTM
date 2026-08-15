@@ -33,9 +33,7 @@ public class OilSpot {
                     break;
                 }
 
-                if(!belowState.isFaceSturdy(level, belowPos, Direction.UP)) {
-                    continue;
-                }
+                if(!belowState.isFaceSturdy(level, belowPos, Direction.UP)) continue;
 
                 if(groundState.is(Blocks.GRASS_BLOCK) || groundState.is(Blocks.DIRT)) {
                     level.setBlock(pos, random.nextInt(10) == 0 ? NtmBlocks.DIRT_OILY.get().defaultBlockState() : NtmBlocks.DIRT_DEAD.get().defaultBlockState(), 3);
@@ -47,22 +45,14 @@ public class OilSpot {
                     }
                     break;
                 }
-
                 if(groundState.is(Blocks.SAND) || groundState.is(Blocks.RED_SAND) || groundState.is(NtmBlocks.ORE_OIL_SAND.get())) {
                     level.setBlock(pos, groundState.is(Blocks.RED_SAND) ? NtmBlocks.SAND_RED_OILY.get().defaultBlockState() : NtmBlocks.SAND_OILY.get().defaultBlockState(), 3);
                     break;
                 }
-
                 if(groundState.is(Blocks.STONE)) {
                     level.setBlock(pos, NtmBlocks.STONE_CRACKED.get().defaultBlockState(), 3);
                     break;
                 }
-
-                // todo machine blocks cant occlude
-//                if(!groundState.canOcclude() && !groundState.isAir()) {
-//                    level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-//                    break;
-//                }
             }
         }
     }

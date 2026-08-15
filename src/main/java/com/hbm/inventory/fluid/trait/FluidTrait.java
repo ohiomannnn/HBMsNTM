@@ -28,7 +28,7 @@ public class FluidTrait {
         registerTrait("polluting", FT_Polluting.class);
         registerTrait("heatable", FT_Heatable.class);
         registerTrait("coolable", FT_Coolable.class);
-        //registerTrait("pwrmoderator", FT_PWRModerator.class);
+        registerTrait("pwrmoderator", FT_PWRModerator.class);
         registerTrait("poison", FT_Poison.class);
         //registerTrait("toxin", FT_Toxin.class);
         registerTrait("ventradiation", FT_VentRadiation.class);

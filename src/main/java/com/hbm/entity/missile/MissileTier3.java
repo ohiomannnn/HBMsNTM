@@ -78,7 +78,7 @@ public abstract class MissileTier3 extends MissileBase {
         public MissileRain(EntityType<? extends MissileRain> entityType, Level level) { super(entityType, level); this.isCluster = true; }
         @Override public void onMissileImpact(BlockHitResult mop) {
             ExplosionVNT.createExplosion(level, this, this.position.x, this.position.y, this.position.z, 25F, true);
-            ExplosionChaos.cluster(level, this.position.x, this.position.y, this.position.z, 100);
+            ExplosionChaos.cluster(this.level, this.getX(), this.getY(), this.getZ(), 100, this.yRot, this.xRot, (float) Math.PI * 0.25F, (float) Math.PI * 0.25F, 1F);
         }
         @Override public void cluster() { this.onMissileImpact(null); }
         @Override public ItemStack getDebrisRareDrop() { return new ItemStack(NtmItems.NOTHING.get()); }

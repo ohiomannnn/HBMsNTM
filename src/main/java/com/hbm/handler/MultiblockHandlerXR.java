@@ -1,10 +1,12 @@
 package com.hbm.handler;
 
+import com.hbm.blocks.DummyBlockType;
 import com.hbm.blocks.DummyableBlock;
 import com.hbm.main.NuclearTechMod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
@@ -48,7 +50,7 @@ public class MultiblockHandlerXR {
         return true;
     }
 
-    public static void fillSpace(Level level, BlockPos corePos, int[] dim, DummyableBlock block, Direction dir) {
+    public static void fillSpace(Level level, BlockPos corePos, int[] dim, Block block, Direction dir) {
         if(dim == null || dim.length != 6) return;
 
         int count = 0;
@@ -84,7 +86,7 @@ public class MultiblockHandlerXR {
                     }
 
                     BlockPos dummyPos = new BlockPos(a, b, c);
-                    BlockState dummyState = block.createDummyState(facingDir);
+                    BlockState dummyState = block.defaultBlockState().setValue(DummyableBlock.FACING, facingDir).setValue(DummyableBlock.TYPE, DummyBlockType.DUMMY);
 
                     level.setBlock(dummyPos, dummyState, 3);
 

@@ -14,7 +14,9 @@ import net.neoforged.neoforge.client.event.RenderGuiEvent;
 import java.util.List;
 
 public interface ILookOverlay {
-    @OnlyIn(Dist.CLIENT) void printHook(RenderGuiEvent.Pre event, Level level, BlockPos pos);
+
+    @OnlyIn(Dist.CLIENT)
+    void printHook(RenderGuiEvent.Pre event, Level level, BlockPos pos);
 
     @OnlyIn(Dist.CLIENT)
     static void printGeneric(RenderGuiEvent.Pre event, Component title, int titleCol, int bgCol, List<Component> text) {

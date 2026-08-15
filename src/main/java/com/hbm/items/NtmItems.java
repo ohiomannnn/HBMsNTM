@@ -603,6 +603,21 @@ public class NtmItems {
     public static final DeferredItem<Item> ROD_QUAD_EMPTY = ITEMS.register("rod_quad_empty", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> ROD_QUAD = ITEMS.register("rod_quad", () -> new BreedingRodItem(new Item.Properties()));
 
+    // ZIRNOX parts
+    public static final DeferredItem<Item> ROD_ZIRNOX_EMPTY = ITEMS.register("rod_zirnox_empty", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> ROD_ZIRNOX_TRITIUM = ITEMS.register("rod_zirnox_tritium", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> ROD_ZIRNOX = ITEMS.register("rod_zirnox", () -> new ZirnoxRodItem(new Item.Properties().stacksTo(1).setNoRepair()));
+
+    public static final DeferredItem<Item> ROD_ZIRNOX_NATURAL_URANIUM_FUEL_DEPLETED = ITEMS.register("rod_zirnox_natural_uranium_fuel_depleted", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> ROD_ZIRNOX_URANIUM_FUEL_DEPLETED = ITEMS.register("rod_zirnox_uranium_fuel_depleted", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> ROD_ZIRNOX_THORIUM_FUEL_DEPLETED = ITEMS.register("rod_zirnox_thorium_fuel_depleted", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> ROD_ZIRNOX_MOX_FUEL_DEPLETED = ITEMS.register("rod_zirnox_mox_fuel_depleted", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> ROD_ZIRNOX_PLUTONIUM_FUEL_DEPLETED = ITEMS.register("rod_zirnox_plutonium_fuel_depleted", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> ROD_ZIRNOX_U233_FUEL_DEPLETED = ITEMS.register("rod_zirnox_u233_fuel_depleted", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> ROD_ZIRNOX_U235_FUEL_DEPLETED = ITEMS.register("rod_zirnox_u235_fuel_depleted", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> ROD_ZIRNOX_LES_FUEL_DEPLETED = ITEMS.register("rod_zirnox_les_fuel_depleted", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> ROD_ZIRNOX_ZFB_MOX_DEPLETED = ITEMS.register("rod_zirnox_zfb_mox_depleted", () -> new Item(new Item.Properties()));
+
     // Spawners
     public static final DeferredItem<Item> SPAWN_DUCK = ITEMS.register("spawn_duck", () -> new EntitySpawnerItem(new Item.Properties().stacksTo(16)));
 
@@ -830,6 +845,7 @@ public class NtmItems {
     public static final DeferredItem<Item> BOMB_CALLER = ITEMS.register("bomb_caller", () -> new BombCallerItem(new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> DEFUSER = ITEMS.register("defuser", () -> new ToolingItem(ToolType.DEFUSER, new Item.Properties().durability(100)));
     public static final DeferredItem<Item> REACHER = ITEMS.register("reacher", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final DeferredItem<Item> MELTDOWN_TOOL = ITEMS.register("meltdown_tool", () -> new DyatlovItem(new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> DRILL_TITANIUM = ITEMS.register("drill_titanium", () -> new Item(new Item.Properties()));
 
     // Wands, Tools, Other Crap
@@ -853,6 +869,7 @@ public class NtmItems {
     public static DeferredItem<Item> GUN_DEBUG;
     public static DeferredItem<Item> GUN_MARESLEG;
     public static DeferredItem<Item> GUN_SPAS12;
+    public static DeferredItem<Item> GUN_HANGMAN;
 
     public static final DeferredItem<Item> NO9 = ITEMS.register("no9", () -> new ArmorNo9(ArmorMaterials.IRON));
 

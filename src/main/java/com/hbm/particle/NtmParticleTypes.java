@@ -45,6 +45,7 @@ public class NtmParticleTypes {
     public static final DeferredHolder<ParticleType<?>, ParticleType<NbtParticleOptions>> VOMIT_BLOOD =  register("vomit_blood",  false, NbtParticleOptions::codec, NbtParticleOptions::streamCodec);
     public static final DeferredHolder<ParticleType<?>, ParticleType<NbtParticleOptions>> VOMIT_SMOKE =  register("vomit_smoke",  false, NbtParticleOptions::codec, NbtParticleOptions::streamCodec);
     public static final DeferredHolder<ParticleType<?>, ParticleType<NbtParticleOptions>> AMAT =  register("amat",  false, NbtParticleOptions::codec, NbtParticleOptions::streamCodec);
+    public static final DeferredHolder<ParticleType<?>, ParticleType<NbtParticleOptions>> RBMK_FLAME = register("rbmkflame",  false, NbtParticleOptions::codec, NbtParticleOptions::streamCodec);
     public static final DeferredHolder<ParticleType<?>, ParticleType<NbtParticleOptions>> COOLING_TOWER = register("cooling_tower",  false, NbtParticleOptions::codec, NbtParticleOptions::streamCodec);
     public static final DeferredHolder<ParticleType<?>, ParticleType<NbtParticleOptions>> GAS_FLAME = register("gas_flame",  false, NbtParticleOptions::codec, NbtParticleOptions::streamCodec);
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> TOM_BLAST = register("tom_blast", true);

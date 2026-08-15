@@ -54,7 +54,8 @@ public abstract class DummyableBlock extends BaseEntityBlock implements ICustomB
     public static boolean safeRem = false;
 
     public DummyableBlock(Properties properties) {
-        super(properties.randomTicks().isSuffocating(NtmBlocks::never).isViewBlocking(NtmBlocks::never));
+        super(properties.isSuffocating(NtmBlocks::never).isViewBlocking(NtmBlocks::never));
+
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(TYPE, DummyBlockType.CORE)
@@ -128,16 +129,6 @@ public abstract class DummyableBlock extends BaseEntityBlock implements ICustomB
         super.neighborChanged(state, level, pos, block, fromPos, isMoving);
 
         if(safeRem) return;
-        this.destroyIfOrphan(level, pos, state);
-    }
-
-    @Override
-    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        this.destroyIfOrphan(level, pos, state);
-    }
-
-    @Override
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         this.destroyIfOrphan(level, pos, state);
     }
 

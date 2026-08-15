@@ -7,13 +7,13 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public abstract class InfoScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 
@@ -22,6 +22,7 @@ public abstract class InfoScreen<T extends AbstractContainerMenu> extends Abstra
     public InfoScreen(T menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
     }
+
 
     public void drawElectricityInfo(GuiGraphics guiGraphics, int mouseX, int mouseY, int x, int y, int width, int height, long power, long maxPower) {
         this.drawCustomInfoStat(guiGraphics, mouseX, mouseY, x, y, width, height, mouseX, mouseY, Component.literal(BobMathUtil.getShortNumber(power) + "/" + BobMathUtil.getShortNumber(maxPower) + I18nUtil.resolveKey("he")));
@@ -36,6 +37,12 @@ public abstract class InfoScreen<T extends AbstractContainerMenu> extends Abstra
         if(x <= mouseX && x + width > mouseX && y < mouseY && y + height >= mouseY) {
             guiGraphics.renderComponentTooltip(this.font, text, tPosX, tPosY);
         }
+    }
+
+    public void drawCustomInfoStat(GuiGraphics guiGraphics, int mouseX, int mouseY, int x, int y, int width, int height, Component... text) {
+
+        List<Component> components = Arrays.asList(text);
+        if(x <= mouseX && x + width > mouseX && y < mouseY && y + height >= mouseY) guiGraphics.renderComponentTooltip(this.font, components, mouseX, mouseY);
     }
 
     public void drawInfoPanel(GuiGraphics guiGraphics, int x, int y, int type) {
@@ -61,6 +68,6 @@ public abstract class InfoScreen<T extends AbstractContainerMenu> extends Abstra
 
     @SuppressWarnings("DataFlowIssue")
     public void click() {
-        this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+        this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1F));
     }
 }

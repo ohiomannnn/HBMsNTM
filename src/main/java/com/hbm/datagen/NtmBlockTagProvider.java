@@ -304,6 +304,7 @@ public class NtmBlockTagProvider extends BlockTagsProvider {
                         NtmBlocks.TRANSFORMER.get(),
 
                         NtmBlocks.MACHINE_FLUID_TANK.get(),
+                        NtmBlocks.MACHINE_CHUNGUS.get(),
                         NtmBlocks.MACHINE_BATTERY_REDD.get(),
                         NtmBlocks.MACHINE_BATTERY_SOCKET.get(),
                         NtmBlocks.MACHINE_ASSEMBLY_MACHINE.get(),

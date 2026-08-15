@@ -702,6 +702,20 @@ public class NtmItemModelProvider extends ItemModelProvider {
         this.basicItem(NtmItems.ROD_DUAL_EMPTY.get());
         this.basicItem(NtmItems.ROD_QUAD_EMPTY.get());
 
+        this.basicItem(NtmItems.ROD_ZIRNOX_EMPTY.get());
+        this.basicItem(NtmItems.ROD_ZIRNOX_TRITIUM.get());
+        // ROD_ZIRNOX uses ICustomItemModelRegister
+
+        this.basicItem(NtmItems.ROD_ZIRNOX_NATURAL_URANIUM_FUEL_DEPLETED.get());
+        this.basicItem(NtmItems.ROD_ZIRNOX_URANIUM_FUEL_DEPLETED.get());
+        this.basicItem(NtmItems.ROD_ZIRNOX_THORIUM_FUEL_DEPLETED.get());
+        this.basicItem(NtmItems.ROD_ZIRNOX_MOX_FUEL_DEPLETED.get());
+        this.basicItem(NtmItems.ROD_ZIRNOX_PLUTONIUM_FUEL_DEPLETED.get());
+        this.basicItem(NtmItems.ROD_ZIRNOX_U233_FUEL_DEPLETED.get());
+        this.basicItem(NtmItems.ROD_ZIRNOX_U235_FUEL_DEPLETED.get());
+        this.basicItem(NtmItems.ROD_ZIRNOX_LES_FUEL_DEPLETED.get());
+        this.basicItem(NtmItems.ROD_ZIRNOX_ZFB_MOX_DEPLETED.get());
+
         this.basicItem(NtmItems.SPAWN_DUCK.get());
 
         this.basicItem(NtmItems.DESIGNATOR.get());
@@ -858,6 +872,7 @@ public class NtmItemModelProvider extends ItemModelProvider {
         this.handheldItem(NtmItems.BOMB_CALLER.get());
         this.handheldItem(NtmItems.DEFUSER.get());
         this.handheldItem(NtmItems.REACHER.get());
+        this.basicItem(NtmItems.MELTDOWN_TOOL.get());
         this.handheldItem(NtmItems.DRILL_TITANIUM.get());
 
         this.handheldItem(NtmItems.UPGRADE_TEMPLATE.get());
@@ -893,6 +908,7 @@ public class NtmItemModelProvider extends ItemModelProvider {
         this.entityItem(NtmItems.GUN_DEBUG.get(), true);
         this.entityItem(NtmItems.GUN_MARESLEG.get(), true);
         this.entityItem(NtmItems.GUN_SPAS12.get(), true);
+        this.entityItem(NtmItems.GUN_HANGMAN.get(), true);
 
         // welp
         this.getBuilder(NtmBlocks.BASALT.getId().getPath()).parent(new ModelFile.UncheckedModelFile(modLoc("block/basalt")));

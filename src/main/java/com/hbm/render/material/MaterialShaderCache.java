@@ -20,7 +20,7 @@ public class MaterialShaderCache {
     private static ShaderInstance compile(Material material) {
         String vsh = MaterialShaderSource.vertex(material);
         String fsh = MaterialShaderSource.fragment(material);
-        String json = buildJson();
+        String json = MaterialShaderSource.json();
 
         GeneratedShaderResources resources = new GeneratedShaderResources(Minecraft.getInstance().getResourceManager());
         resources.put(NuclearTechMod.withDefaultNamespace("shaders/core/generated.json"), json);
@@ -32,34 +32,5 @@ public class MaterialShaderCache {
         } catch(IOException e) {
             throw new IllegalStateException("Shader compile failed " + material, e);
         }
-    }
-
-    private static String buildJson() {
-        return """
-            {
-              "vertex": "hbmsntm:generated",
-              "fragment": "hbmsntm:generated",
-              "samplers": [
-                { "name": "Sampler0" },
-                { "name": "Sampler1" },
-                { "name": "Sampler2" }
-              ],
-              "uniforms": [
-                { "name": "ModelViewMat", "type": "matrix4x4", "count": 16, "values": [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0] },
-                { "name": "ProjMat", "type": "matrix4x4", "count": 16, "values": [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0] },
-                { "name": "PoseMat", "type": "matrix4x4", "count": 16, "values": [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0] },
-                { "name": "TextureMat", "type": "matrix4x4", "count": 16, "values": [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0] },
-                { "name": "Color", "type": "float", "count": 4, "values": [ 1.0, 1.0, 1.0, 1.0 ] },
-                { "name": "UV1", "type": "int", "count": 2, "values": [0, 10] },
-                { "name": "UV2", "type": "int", "count": 2, "values": [240, 240] },
-                { "name": "Light0_Direction", "type": "float", "count": 3, "values": [0.0, 0.0, 0.0] },
-                { "name": "Light1_Direction", "type": "float", "count": 3, "values": [0.0, 0.0, 0.0] },
-                { "name": "FogStart", "type": "float", "count": 1, "values": [0.0] },
-                { "name": "FogEnd", "type": "float", "count": 1, "values": [1.0] },
-                { "name": "FogColor", "type": "float", "count": 4, "values": [0.0,0.0,0.0,0.0] },
-                { "name": "FogShape", "type": "int", "count": 1, "values": [0] }
-              ]
-            }
-            """;
     }
 }

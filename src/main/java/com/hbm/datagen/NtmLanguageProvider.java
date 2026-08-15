@@ -1388,6 +1388,7 @@ public class NtmLanguageProvider extends LanguageProvider {
         this.add(NtmItems.BOMB_CALLER, DESC, "Aim & click to call an airstrike!");
         this.add(NtmItems.DEFUSER, "High-Tech Bomb Defusing Device");
         this.add(NtmItems.REACHER, "Tungsten Reacher");
+        this.add(NtmItems.MELTDOWN_TOOL, "Dyatlov Instant Meltdown Applicator");
 
         this.add("item.hbmsntm.obj_polaroid.desc", "Fate chosen");
         this.add("item.hbmsntm.obj_polaroid.fate1", "...");
@@ -1669,6 +1670,7 @@ public class NtmLanguageProvider extends LanguageProvider {
         this.add(NtmBlocks.MACHINE_INDUSTRIAL_BOILER, "Industrial Boiler");
         this.add(NtmBlocks.MACHINE_SHREDDER, "Machine Shredder");
         this.add(NtmBlocks.MACHINE_FLUID_TANK, "Tank");
+        this.add(NtmBlocks.MACHINE_CHUNGUS, "Leviathan Steam Turbine");
         this.add(NtmBlocks.MACHINE_SOLDERING_STATION, "Soldering Station");
         this.add(NtmBlocks.HEATER_FIREBOX, "Firebox");
         this.add(NtmBlocks.HEATER_OVEN, "Heating Oven");
@@ -1792,6 +1794,15 @@ public class NtmLanguageProvider extends LanguageProvider {
         this.add("container.machine_blast_furnace", "Blast Furnace");
         this.add("container.machine_centrifuge", "Centrifuge");
         this.add("container.machineWoodBurner", "Wood-Burner");
+        this.add("container.zirnox", "ZIRNOX Nuclear Reactor");
+        this.add("container.zirnox.temp0", "Temperature:");
+        this.add("container.zirnox.temp1", "   %s°C");
+        this.add("container.zirnox.bars0", "Pressure:");
+        this.add("container.zirnox.bars1", "   %s bar");
+        this.add("container.zirnox.coolant", "§3Coolant§r$CO2 transfers heat from the core to the water.$This will boil it into super dense steam.$The efficiency of cooling and steam production$is based on pressure.");
+        this.add("container.zirnox.pressure", "§6Pressure§r$Pressure can be reduced by venting CO2.$However, too low a pressure, and cooling$efficiency and steam production will be reduced.$Look out for meltdowns!");
+        this.add("container.zirnox.warning.water", "§cError:§r Water is required for$the reactor to function properly!");
+        this.add("container.zirnox.warning.carbon", "§cError:§r CO2 is required for$the reactor to function properly!");
         this.add("container.sat_linker", "SatLink Device");
         this.add("container.sat_linker.chip", "The first slot will copy the satellite/chip's$frequency and paste it to the second slot.");
         this.add("container.sat_linker.random", "The third slot will randomize the$satellite/chip's frequency.");

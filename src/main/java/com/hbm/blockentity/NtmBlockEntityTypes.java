@@ -101,6 +101,9 @@ public class NtmBlockEntityTypes {
                             NtmBlocks.MACHINE_SHREDDER.get())
                     .build(null));
 
+    public static final Supplier<BlockEntityType<ReactorZirnoxBlockEntity>> REACTOR_ZIRNOX = BLOCK_ENTITY_TYPES.register("machine_zirnox", () -> BlockEntityType.Builder.of(ReactorZirnoxBlockEntity::new, NtmBlocks.REACTOR_ZIRNOX.get()).build(null));
+    public static final Supplier<BlockEntityType<ZirnoxDestroyedBlockEntity>> ZIRNOX_DESTROYED = BLOCK_ENTITY_TYPES.register("zirnox_destroyed", () -> BlockEntityType.Builder.of(ZirnoxDestroyedBlockEntity::new, NtmBlocks.ZIRNOX_DESTROYED.get()).build(null));
+
     public static final Supplier<BlockEntityType<RadioTorchReceiverBlockEntity>> RADIO_TORCH_RECEIVER = BLOCK_ENTITY_TYPES.register("radio_torch_receiver", () -> BlockEntityType.Builder.of(RadioTorchReceiverBlockEntity::new, NtmBlocks.RADIO_TORCH_RECEIVER.get()).build(null));
     public static final Supplier<BlockEntityType<RadioTorchSenderBlockEntity>> RADIO_TORCH_SENDER = BLOCK_ENTITY_TYPES.register("radio_torch_sender", () -> BlockEntityType.Builder.of(RadioTorchSenderBlockEntity::new, NtmBlocks.RADIO_TORCH_SENDER.get()).build(null));
 
@@ -198,12 +201,8 @@ public class NtmBlockEntityTypes {
 
     public static final Supplier<BlockEntityType<MachinePressBlockEntity>> PRESS = BLOCK_ENTITY_TYPES.register("press", () -> BlockEntityType.Builder.of(MachinePressBlockEntity::new, NtmBlocks.MACHINE_PRESS.get()).build(null));
 
-    public static final Supplier<BlockEntityType<MachineFluidTankBlockEntity>> FLUID_TANK = BLOCK_ENTITY_TYPES.register(
-            "fluid_tank",
-            () -> BlockEntityType.Builder.of(
-                            MachineFluidTankBlockEntity::new,
-                            NtmBlocks.MACHINE_FLUID_TANK.get())
-                    .build(null));
+    public static final Supplier<BlockEntityType<MachineFluidTankBlockEntity>> FLUID_TANK = BLOCK_ENTITY_TYPES.register("fluid_tank", () -> BlockEntityType.Builder.of(MachineFluidTankBlockEntity::new, NtmBlocks.MACHINE_FLUID_TANK.get()).build(null));
+    public static final Supplier<BlockEntityType<ChungusBlockEntity>> MACHINE_CHUNGUS = BLOCK_ENTITY_TYPES.register("machine_chungus", () -> BlockEntityType.Builder.of(ChungusBlockEntity::new, NtmBlocks.MACHINE_CHUNGUS.get()).build(null));
 
     public static final Supplier<BlockEntityType<BatterySocketBlockEntity>> BATTERY_SOCKET = BLOCK_ENTITY_TYPES.register(
             "battery_socket",

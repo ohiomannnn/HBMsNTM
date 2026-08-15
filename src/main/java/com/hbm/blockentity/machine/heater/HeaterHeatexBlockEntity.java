@@ -8,6 +8,7 @@ import com.hbm.inventory.fluid.FluidType;
 import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.fluid.tank.FluidTank;
 import com.hbm.inventory.fluid.trait.FT_Coolable;
+import com.hbm.inventory.fluid.trait.FT_Coolable.CoolingType;
 import com.hbm.items.machine.IItemFluidIdentifier;
 import com.hbm.util.fauxpointtwelve.DirPos;
 import net.minecraft.ChatFormatting;
@@ -90,10 +91,10 @@ public class HeaterHeatexBlockEntity extends AbstractHeaterMachineBlockEntity im
     }
 
     protected void setupTanks() {
-        if(this.tanks[0].getTankType().hasTrait(FT_Coolable.class)) {
-            FT_Coolable trait = this.tanks[0].getTankType().getTrait(FT_Coolable.class);
-            if(trait.getEfficiency(FT_Coolable.CoolingType.HEATEXCHANGER) > 0 && trait.getFirstStep() != null) {
-                this.tanks[1].setTankType(trait.getFirstStep().typeProduced());
+        if(tanks[0].getTankType().hasTrait(FT_Coolable.class)) {
+            FT_Coolable trait = tanks[0].getTankType().getTrait(FT_Coolable.class);
+            if(trait.getEfficiency(CoolingType.HEATEXCHANGER) > 0) {
+                tanks[1].setTankType(trait.coolsTo);
                 return;
             }
         }
@@ -109,24 +110,22 @@ public class HeaterHeatexBlockEntity extends AbstractHeaterMachineBlockEntity im
     }
 
     protected void tryConvert() {
-        if(!this.tanks[0].getTankType().hasTrait(FT_Coolable.class)) return;
-        if(this.tickDelay < 1) this.tickDelay = 1;
-        if(this.level.getGameTime() % this.tickDelay != 0) return;
+        if(this.level == null) return;
 
-        FT_Coolable trait = this.tanks[0].getTankType().getTrait(FT_Coolable.class);
-        FT_Coolable.CoolingStep step = trait.getFirstStep();
-        if(step == null) return;
+        if(!tanks[0].getTankType().hasTrait(FT_Coolable.class)) return;
+        if(tickDelay < 1) tickDelay = 1;
+        if(this.level.getGameTime() % tickDelay != 0) return;
 
-        int inputOps = this.tanks[0].getFill() / step.amountReq();
-        int outputOps = (this.tanks[1].getMaxFill() - this.tanks[1].getFill()) / step.amountProduced();
+        FT_Coolable trait = tanks[0].getTankType().getTrait(FT_Coolable.class);
+
+        int inputOps = tanks[0].getFill() / trait.amountReq;
+        int outputOps = (tanks[1].getMaxFill() - tanks[1].getFill()) / trait.amountProduced;
         int opCap = this.amountToCool;
 
         int ops = Math.min(inputOps, Math.min(outputOps, opCap));
-        if(ops <= 0) return;
-
-        this.tanks[0].setFill(this.tanks[0].getFill() - step.amountReq() * ops);
-        this.tanks[1].setFill(this.tanks[1].getFill() + step.amountProduced() * ops);
-        this.heatEnergy += (int) (step.heatReq() * ops * trait.getEfficiency(FT_Coolable.CoolingType.HEATEXCHANGER));
+        tanks[0].setFill(tanks[0].getFill() - trait.amountReq * ops);
+        tanks[1].setFill(tanks[1].getFill() + trait.amountProduced * ops);
+        this.heatEnergy += trait.heatEnergy * ops * trait.getEfficiency(CoolingType.HEATEXCHANGER);
         this.setChanged();
     }
 

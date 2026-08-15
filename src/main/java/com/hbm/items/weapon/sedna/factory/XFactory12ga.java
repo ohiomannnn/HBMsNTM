@@ -47,7 +47,7 @@ public class XFactory12ga {
         Lego.standardExplode(bullet, hr, 2F); bullet.discard();
     };
 
-    public static void init(DeferredRegister.Items registery) {
+    public static void init(DeferredRegister.Items registry) {
 
         float buckshotSpread = 0.035F;
         float magnumSpread = 0.015F;
@@ -64,7 +64,7 @@ public class XFactory12ga {
 
         BulletConfig[] all = new BulletConfig[] {g12_bp, g12_bp_magnum, g12_bp_slug, g12, g12_slug, g12_flechette, g12_magnum, g12_explosive, g12_phosphorus};
 
-        NtmItems.GUN_MARESLEG = registery.register("gun_maresleg", () -> new GunBaseNTItem(WeaponQuality.A_SIDE, new GunConfig()
+        NtmItems.GUN_MARESLEG = registry.register("gun_maresleg", () -> new GunBaseNTItem(WeaponQuality.A_SIDE, new GunConfig()
                 .dura(600).draw(10).inspect(39).reloadSequential(true).crosshair(Crosshair.L_CIRCLE).smoke(Lego.LAMBDA_STANDARD_SMOKE)
                 .rec(new Receiver(0)
                         .dmg(16F).delay(20).reload(22, 10, 13, 0).jam(24).sound(NtmSoundEvents.GUN_SHOTGUN_FIRE, 1F, 1F)
@@ -74,7 +74,7 @@ public class XFactory12ga {
                 .setupStandardConfiguration()
                 .anim(LAMBDA_MARESLEG_ANIMS).orchestra(Orchestras.ORCHESTRA_MARESLEG)
         ).setDefaultAmmo(Ammo.G12, 12));//.setNameMutator(LAMBDA_NAME_MARESLEG);
-        NtmItems.GUN_SPAS12 = registery.register("gun_spas12", () -> new GunBaseNTItem(WeaponQuality.A_SIDE, new GunConfig()
+        NtmItems.GUN_SPAS12 = registry.register("gun_spas12", () -> new GunBaseNTItem(WeaponQuality.A_SIDE, new GunConfig()
                 .dura(600).draw(20).inspect(39).reloadSequential(true).reloadChangeType(true).crosshair(Crosshair.L_CIRCLE).smoke(Lego.LAMBDA_STANDARD_SMOKE)
                 .rec(new Receiver(0)
                         .dmg(32F).spreadHipfire(0F).delay(20).reload(5, 10, 10, 10, 0).jam(36).sound(NtmSoundEvents.GUN_SPAS_FIRE, 1.0F, 1.0F)

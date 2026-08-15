@@ -577,6 +577,7 @@ public class NtmCreativeTabs {
                         addMetaItems(output, NtmItems.ROD_QUAD.get());
 
                         output.accept(NtmItems.REACHER);
+                        output.accept(NtmItems.MELTDOWN_TOOL);
 
                         output.accept(NtmItems.UPGRADE_TEMPLATE);
                         output.accept(NtmItems.UPGRADE_SPEED_1);
@@ -764,6 +765,7 @@ public class NtmCreativeTabs {
 
                         output.accept(NtmBlocks.GEIGER);
 
+                        output.accept(NtmBlocks.REACTOR_ZIRNOX);
                         output.accept(NtmBlocks.RED_CABLE);
 
                         addMetaItems(output, NtmBlocks.FLUID_DUCT_NEO.asItem());
@@ -776,6 +778,7 @@ public class NtmCreativeTabs {
                         output.accept(NtmBlocks.MACHINE_ASSEMBLY_MACHINE);
                         output.accept(NtmBlocks.MACHINE_SHREDDER);
                         output.accept(NtmBlocks.MACHINE_FLUID_TANK);
+                        output.accept(NtmBlocks.MACHINE_CHUNGUS);
                         output.accept(NtmBlocks.MACHINE_SOLDERING_STATION);
                         output.accept(NtmBlocks.MACHINE_WELL);
                         output.accept(NtmBlocks.MACHINE_PUMPJACK);

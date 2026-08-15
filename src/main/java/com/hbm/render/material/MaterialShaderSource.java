@@ -27,11 +27,10 @@ public class MaterialShaderSource {
                     return max(distXZ, distY);
                 }
             }
-
-            in vec3 Position;
-            in vec2 UV0;
-            in vec3 Normal;
-
+            
+            uniform sampler2D Sampler1;
+            uniform sampler2D Sampler2;
+           
             uniform mat4 ModelViewMat;
             uniform mat4 ProjMat;
             uniform mat4 PoseMat;
@@ -41,18 +40,19 @@ public class MaterialShaderSource {
             uniform ivec2 UV1;
             uniform ivec2 UV2;
             uniform mat4 TextureMat;
+            
+            uniform vec3 Light0_Direction;
+            uniform vec3 Light1_Direction;
+
+            in vec3 Position;
+            in vec2 UV0;
+            in vec3 Normal;
 
             out float vertexDistance;
             out vec4 vertexColor;
             out vec4 lightMapColor;
             out vec4 overlayColor;
             out vec2 texCoord0;
-
-            uniform sampler2D Sampler1;
-            uniform sampler2D Sampler2;
-            
-            uniform vec3 Light0_Direction;
-            uniform vec3 Light1_Direction;
 
             void main() {
                 vec4 worldPos = PoseMat * vec4(Position, 1.0);
@@ -112,5 +112,34 @@ public class MaterialShaderSource {
             }
             """
                 .formatted(cutout);
+    }
+
+    public static String json() {
+        return """
+            {
+              "vertex": "hbmsntm:generated",
+              "fragment": "hbmsntm:generated",
+              "samplers": [
+                { "name": "Sampler0" },
+                { "name": "Sampler1" },
+                { "name": "Sampler2" }
+              ],
+              "uniforms": [
+                { "name": "ModelViewMat", "type": "matrix4x4", "count": 16, "values": [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0] },
+                { "name": "ProjMat", "type": "matrix4x4", "count": 16, "values": [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0] },
+                { "name": "PoseMat", "type": "matrix4x4", "count": 16, "values": [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0] },
+                { "name": "TextureMat", "type": "matrix4x4", "count": 16, "values": [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0] },
+                { "name": "Color", "type": "float", "count": 4, "values": [ 1.0, 1.0, 1.0, 1.0 ] },
+                { "name": "UV1", "type": "int", "count": 2, "values": [0, 10] },
+                { "name": "UV2", "type": "int", "count": 2, "values": [240, 240] },
+                { "name": "Light0_Direction", "type": "float", "count": 3, "values": [0.0, 0.0, 0.0] },
+                { "name": "Light1_Direction", "type": "float", "count": 3, "values": [0.0, 0.0, 0.0] },
+                { "name": "FogStart", "type": "float", "count": 1, "values": [0.0] },
+                { "name": "FogEnd", "type": "float", "count": 1, "values": [1.0] },
+                { "name": "FogColor", "type": "float", "count": 4, "values": [0.0,0.0,0.0,0.0] },
+                { "name": "FogShape", "type": "int", "count": 1, "values": [0] }
+              ]
+            }
+            """;
     }
 }

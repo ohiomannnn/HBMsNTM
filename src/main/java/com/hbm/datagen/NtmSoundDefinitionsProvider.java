@@ -217,6 +217,15 @@ public class NtmSoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.add(NtmSoundEvents.PIPE_PLACED, SoundDefinition.definition()
                 .with(sound("hbmsntm:block/pipe_placed"))
         );
+        this.add(NtmSoundEvents.RBMK_EXPLOSION, SoundDefinition.definition()
+                .with(sound(NuclearTechMod.withDefaultNamespace("block/rbmk_explosion")))
+        );
+        this.add(NtmSoundEvents.RBMK_AZ5_COVER, SoundDefinition.definition()
+                .with(sound(NuclearTechMod.withDefaultNamespace("block/rbmk_az5_cover")))
+        );
+        this.add(NtmSoundEvents.TURBINE_LEVER, SoundDefinition.definition()
+                .with(sound(NuclearTechMod.withDefaultNamespace("block/chungus_lever")))
+        );
         this.add(NtmSoundEvents.BOBBLE, SoundDefinition.definition()
                 .with(sound("hbmsntm:block/bobble"))
         );
@@ -260,6 +269,9 @@ public class NtmSoundDefinitionsProvider extends SoundDefinitionsProvider {
                         sound("hbmsntm:block/boilergroan1"),
                         sound("hbmsntm:block/boilergroan2")
                 )
+        );
+        this.add(NtmSoundEvents.TURBINE_LEVI_LOOP, SoundDefinition.definition()
+                .with(sound(NuclearTechMod.withDefaultNamespace("block/chungus_turbine")))
         );
         this.add(NtmSoundEvents.ASSEMBLER_STRIKE, SoundDefinition.definition()
                 .with(

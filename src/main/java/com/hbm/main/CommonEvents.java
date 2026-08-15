@@ -177,6 +177,8 @@ public class CommonEvents {
         event.register(NtmMenuTypes.ASSEMBLY_MACHINE.get(), MachineAssemblyMachineScreen::new);
         event.register(NtmMenuTypes.PRESS.get(), MachinePressScreen::new);
 
+        event.register(NtmMenuTypes.REACTOR_ZIRNOX.get(), ReactorZirnoxScreen::new);
+
         event.register(NtmMenuTypes.BATTERY_SOCKET.get(), BatterySocketScreen::new);
         event.register(NtmMenuTypes.BATTERY_REDD.get(), BatteryREDDScreen::new);
 

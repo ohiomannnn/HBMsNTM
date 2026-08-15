@@ -18,10 +18,7 @@ import com.hbm.render.entity.projectile.*;
 import com.hbm.render.entity.rocket.*;
 import com.hbm.render.item.*;
 import com.hbm.render.item.ItemRenderMissileGeneric.RenderMissileType;
-import com.hbm.render.item.weapon.sedna.ItemRenderDebug;
-import com.hbm.render.item.weapon.sedna.ItemRenderMaresleg;
-import com.hbm.render.item.weapon.sedna.ItemRenderSPAS12;
-import com.hbm.render.item.weapon.sedna.ItemRenderWeaponBase;
+import com.hbm.render.item.weapon.sedna.*;
 import com.hbm.render.util.RenderInfoSystem;
 import com.hbm.render.util.RenderInfoSystem.InfoEntry;
 import com.hbm.util.InventoryUtil;
@@ -151,16 +148,6 @@ public class ClientProxy extends ServerProxy {
                 NtmItems.MISSILE_DOOMSDAY.get(),
                 NtmItems.MISSILE_DOOMSDAY_RUSTED.get()
         );
-
-        /// GUNS TEST ///
-        registerGunItemRenderer(event, new ItemRenderDebug(), NtmItems.GUN_DEBUG.get());
-        registerGunItemRenderer(event, new ItemRenderMaresleg(ResourceManager.MARESLEG_TEX), NtmItems.GUN_MARESLEG.get());
-        registerGunItemRenderer(event, new ItemRenderSPAS12(), NtmItems.GUN_SPAS12.get());
-
-        //HUDS
-        ((GunBaseNTItem) NtmItems.GUN_DEBUG.get())						.getConfig(null, 0).hud(LegoClient.HUD_COMPONENT_DURABILITY, LegoClient.HUD_COMPONENT_AMMO, LegoClient.HUD_COMPONENT_AMMO_SECOND);
-        ((GunBaseNTItem) NtmItems.GUN_MARESLEG.get())					.getConfig(null, 0).hud(LegoClient.HUD_COMPONENT_DURABILITY, LegoClient.HUD_COMPONENT_AMMO);
-        ((GunBaseNTItem) NtmItems.GUN_SPAS12.get())						.getConfig(null, 0).hud(LegoClient.HUD_COMPONENT_DURABILITY, LegoClient.HUD_COMPONENT_AMMO);
     }
 
     public static void registerItemRenderer(RegisterClientExtensionsEvent event, BlockEntityWithoutLevelRenderer bewlr, Item... items) {
@@ -175,35 +162,6 @@ public class ClientProxy extends ServerProxy {
             }
         }, items);
     }
-
-    public static void registerGunItemRenderer(RegisterClientExtensionsEvent event, ItemRenderWeaponBase weaponRenderer, Item... items) {
-        event.registerItem(new IClientItemExtensions() {
-
-            private ItemRenderWeaponBase renderer;
-
-            @Override
-            public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
-                if(renderer == null) this.renderer = weaponRenderer;
-                renderer.setup(itemInHand, poseStack, partialTick);
-                return true;
-            }
-
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                if(renderer == null) this.renderer = weaponRenderer;
-                return renderer;
-            }
-
-            @Override
-            public HumanoidModel.ArmPose getArmPose(LivingEntity living, InteractionHand hand, ItemStack itemStack) {
-                if(renderer == null) this.renderer = weaponRenderer;
-                renderer.setEntity(living);
-
-                return IClientItemExtensions.super.getArmPose(living, hand, itemStack);
-            }
-        }, items);
-    }
-
 
     @Override
     public void registerBlockEntityRenderers() {
@@ -245,10 +203,14 @@ public class ClientProxy extends ServerProxy {
         BlockEntityRenderers.register(NtmBlockEntityTypes.MACHINE_CHEMICAL_PLANT.get(), new RenderChemicalPlant());
         BlockEntityRenderers.register(NtmBlockEntityTypes.ASSEMBLY_MACHINE.get(), new RenderAssemblyMachine());
         BlockEntityRenderers.register(NtmBlockEntityTypes.FLUID_TANK.get(), new RenderFluidTank());
+        BlockEntityRenderers.register(NtmBlockEntityTypes.MACHINE_CHUNGUS.get(), new RenderChungus());
         BlockEntityRenderers.register(NtmBlockEntityTypes.PRESS.get(), new RenderPress());
         BlockEntityRenderers.register(NtmBlockEntityTypes.GEIGER_COUNTER.get(), new RenderGeigerBlock());
         BlockEntityRenderers.register(NtmBlockEntityTypes.BATTERY_SOCKET.get(), new RenderBatterySocket());
         BlockEntityRenderers.register(NtmBlockEntityTypes.BATTERY_REDD.get(), new RenderBatteryREDD());
+        //ZIRNOX
+        BlockEntityRenderers.register(NtmBlockEntityTypes.REACTOR_ZIRNOX.get(), new RenderZirnox());
+        BlockEntityRenderers.register(NtmBlockEntityTypes.ZIRNOX_DESTROYED.get(), new RenderZirnoxDestroyed());
         //missile blocks
         BlockEntityRenderers.register(NtmBlockEntityTypes.LAUNCH_PAD.get(), new RenderLaunchPad());
         BlockEntityRenderers.register(NtmBlockEntityTypes.LAUNCH_PAD_LARGE.get(), new RenderLaunchPadLarge());

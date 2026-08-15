@@ -7,9 +7,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.*;
 import net.neoforged.neoforge.common.CommonHooks;
 import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
+
+import java.util.List;
 
 public class EntityDamageUtil {
 
@@ -96,5 +100,70 @@ public class EntityDamageUtil {
                 living.setDeltaMovement(currentMotion.x / 2.0D - knockbackVec.x, motionY, currentMotion.z / 2.0D - knockbackVec.z);
             }
         }
+    }
+
+    public static HitResult getMouseOver(Player attacker, double reach) { return getMouseOver(attacker, reach, 0D); }
+
+    public static HitResult getMouseOver(Player attacker, double reach, double threshold) {
+
+        Level level = attacker.level;
+        HitResult objectMouseOver = rayTrace(attacker, reach, 1F);
+
+        Entity pointedEntity = null;
+
+        Vec3 pos = attacker.getEyePosition(1F);
+        Vec3 look = attacker.getViewVector(1F);
+        Vec3 end = pos.add(look.x * reach, look.y * reach, look.z * reach);
+        Vec3 hitVec = null;
+        float grace = 1.0F;
+
+        List<Entity> list = level.getEntities(attacker, attacker.getBoundingBox().expandTowards(look.x * reach, look.y * reach, look.z * reach).inflate(grace, grace, grace), e -> e.isPickable() && e.isAlive());
+
+        double closest = reach;
+
+        for(Entity entity : list) {
+
+            double borderSize = entity.getPickRadius() + threshold;
+            AABB aabb = entity.getBoundingBox().inflate(borderSize, borderSize, borderSize);
+
+            Vec3 hit = aabb.clip(pos, end).orElse(null);
+
+            if(aabb.contains(pos)) {
+                if(0.0D <= closest) {
+                    pointedEntity = entity;
+                    hitVec = hit == null ? pos : hit;
+                    closest = 0.0D;
+                }
+            } else if(hit != null) {
+                double dist = pos.distanceTo(hit);
+
+                if(dist < closest || closest == 0.0D) {
+                    if(entity == attacker.getVehicle() && !entity.canRiderInteract()) {
+                        if(closest == 0.0D) {
+                            pointedEntity = entity;
+                            hitVec = hit;
+                        }
+                    } else {
+                        pointedEntity = entity;
+                        hitVec = hit;
+                        closest = dist;
+                    }
+                }
+            }
+        }
+
+        if(pointedEntity != null && (closest < reach || objectMouseOver.getType() == HitResult.Type.MISS)) {
+            objectMouseOver = new EntityHitResult(pointedEntity, hitVec);
+        }
+
+        return objectMouseOver;
+    }
+
+    public static BlockHitResult rayTrace(Player player, double dist, float interp) {
+        Vec3 pos = player.getEyePosition(1F);
+        Vec3 look = player.getViewVector(interp);
+        Vec3 end = pos.add(look.x * dist, look.y * dist, look.z * dist);
+
+        return player.level.clip(new ClipContext(pos, end, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player));
     }
 }

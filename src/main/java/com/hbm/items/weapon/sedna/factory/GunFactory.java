@@ -54,6 +54,7 @@ public class GunFactory {
                 ));
 
         XFactory12ga.init(itemRegistry);
+        XFactory44.init(itemRegistry);
         XFactoryCatapult.init();
     }
 
