@@ -199,6 +199,21 @@ public class HazardRegistry {
         HazardSystem.register(item(SOLINIUM_CORE), makeData().addEntry(RADIATION, sa327 * nugget * 8).addEntry(BLINDING, 45F));
 
         HazardSystem.register(block(NUKE_FSTBMB), makeData(DIGAMMA, 0.01F));
+
+        //ingots and nuggets
+        HazardSystem.register(item(INGOT_URANIUM), makeData(RADIATION, 0.35F));
+        HazardSystem.register(item(INGOT_U233), makeData(RADIATION, 5.0F));
+        HazardSystem.register(item(INGOT_U235), makeData(RADIATION, 1.0F));
+        HazardSystem.register(item(INGOT_U238), makeData(RADIATION, 0.25F));
+        HazardSystem.register(item(INGOT_PLUTONIUM), makeData(RADIATION, 7.5F));
+        HazardSystem.register(item(INGOT_PU238), makeData(RADIATION, 10.0F).addEntry(HOT,5F));
+        HazardSystem.register(item(INGOT_PU239), makeData(RADIATION, 5.0F));
+        HazardSystem.register(item(INGOT_PU240), makeData(RADIATION, 7.5F));
+        HazardSystem.register(item(INGOT_PU241), makeData(RADIATION, 25.0F));
+        HazardSystem.register(item(INGOT_AM241), makeData(RADIATION, 8.5F));
+        HazardSystem.register(item(INGOT_AM242), makeData(RADIATION, 9.5F));
+        HazardSystem.register(item(INGOT_NEPTUNIUM), makeData(RADIATION, 2.5F));
+
     }
 
     private static void registerBreedingRodRadiation(BreedingRodType type, float base) {
